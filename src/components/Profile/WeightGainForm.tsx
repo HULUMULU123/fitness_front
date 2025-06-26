@@ -115,7 +115,7 @@ const WeightGainForm: React.FC = () => {
         />
       </Field>
       <Field>
-        <Label>Ягодица (правая, см):</Label>
+        <Label>Ягодицы:</Label>
         <Input
           type="number"
           step="0.1"
