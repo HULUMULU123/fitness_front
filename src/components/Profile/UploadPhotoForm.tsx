@@ -38,8 +38,8 @@ const UploadPhotoForm = () => {
   const { updatePhoto, isLoading, error } = usePhotos();
   const submitForm = (data) => {
     const formData = new FormData();
-    formData.append("photo_front", data.photo[0]);
-    formData.append("photo_side", data.photo[1]);
+    formData.append("photo_front", data.photo_front[0]);
+    formData.append("photo_side", data.photo_side[0]);
     updatePhoto(formData);
     reset();
   };
@@ -47,10 +47,14 @@ const UploadPhotoForm = () => {
   return (
     <Form onSubmit={handleSubmit(submitForm)}>
       <div>
-        <Label>Загрузите фото спереди:</Label>
-        <Input type="file" {...register("photo_front", { required: true })} />
-        <Label>Загрузите фото сбоку:</Label>
-        <Input type="file" {...register("photo_side", { required: true })} />
+        <div>
+          <Label>Загрузите фото спереди:</Label>
+          <Input type="file" {...register("photo_front", { required: true })} />
+        </div>
+        <div>
+          <Label>Загрузите фото сбоку:</Label>
+          <Input type="file" {...register("photo_side", { required: true })} />
+        </div>
       </div>
       <Button type="submit">Отправить</Button>
     </Form>
