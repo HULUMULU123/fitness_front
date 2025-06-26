@@ -171,6 +171,12 @@ const BodyChart = () => {
                   stroke="#ff7300"
                   name="Таз"
                 />
+                <Line
+                  type="monotone"
+                  dataKey="buttock"
+                  stroke="#0088FE"
+                  name="Ягодицы"
+                />
               </LineChart>
             </ResponsiveContainer>
           </div>

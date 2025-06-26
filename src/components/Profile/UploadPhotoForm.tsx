@@ -47,7 +47,8 @@ const UploadPhotoForm = () => {
     <Form onSubmit={handleSubmit(submitForm)}>
       <div>
         <Label>Загрузите фото прогресса:</Label>
-        <Input type="file" {...register("photo", { required: true })} />
+        <Input type="file" {...register("photo_front", { required: true })} />
+        <Input type="file" {...register("photo_side", { required: true })} />
       </div>
       <Button type="submit">Отправить</Button>
     </Form>
