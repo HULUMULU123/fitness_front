@@ -84,7 +84,24 @@ const ProgressPhotoTable = () => {
     console.log("Добавить фото");
   };
 
-  if (!photos || photos.length === 0) return <LoadingSpinner />;
+  if (!photos || photos.length === 0)
+    return (
+      <>
+        <Header>
+          <Title>Фото прогресса</Title>
+          <AddButton
+            onClick={() => {
+              navigate("/update_photo", {
+                state: { from: location.state?.from },
+              });
+            }}
+          >
+            +
+          </AddButton>
+        </Header>
+        <LoadingSpinner />
+      </>
+    );
 
   return (
     <Wrapper>
