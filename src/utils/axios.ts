@@ -29,7 +29,7 @@ api.interceptors.response.use(
       originalRequest._retry = true;
       try {
         const res = await axios.post(
-          "http://localhost:8000/api/token/refresh/",
+          "https://roodensky.online/api/token/refresh/",
           {
             refresh: localStorage.getItem("refresh"),
           }
