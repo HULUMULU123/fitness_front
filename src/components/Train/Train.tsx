@@ -45,6 +45,19 @@ const ExerciseList = styled.ul`
 
 const ExerciseItem = styled.li<{ completed: boolean }>`
   display: grid;
+  grid-template-columns: 2rem 1fr 5rem 5rem 2rem;
+  align-items: center;
+  padding: 0.6rem 0.2rem;
+  background-color: ${(props) => (props.completed ? "#2196f3" : "transparent")};
+  border-radius: 10px;
+  margin-bottom: 0.4rem;
+  transition: background-color 0.3s;
+  color: ${(props) => (props.completed ? "#fff" : "#fff")};
+  font-weight: 600;
+`;
+
+const SupersetExerciseItem = styled.li<{ completed: boolean }>`
+  display: grid;
   grid-template-columns: 2rem 1fr 5rem 5rem;
   align-items: center;
   padding: 0.6rem 0.2rem;
@@ -318,7 +331,7 @@ export default function Train() {
                 {superset.exercises
                   .sort((a, b) => a.order - b.order)
                   .map(({ id, exercise_name, repetitions, weight, order }) => (
-                    <ExerciseItem key={id} completed={false}>
+                    <SupersetExerciseItem key={id} completed={false}>
                       <Order>{order + 1}</Order>
                       <ExerciseName completed={false}>
                         {exercise_name}
@@ -329,7 +342,7 @@ export default function Train() {
                       <DetailItem completed={superset.is_completed}>
                         {weight !== null ? `${weight} кг` : "-"}
                       </DetailItem>
-                    </ExerciseItem>
+                    </SupersetExerciseItem>
                   ))}
               </ExerciseList>
             </SuperSetCard>

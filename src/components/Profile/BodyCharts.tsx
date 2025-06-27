@@ -234,7 +234,14 @@ const BodyChart = () => {
       </p>
       <img
         src={bodySrc}
-        style={{ width: "80%", margin: "auto 0 ", paddingBottom: "6rem" }}
+        style={{
+          width: "80%",
+          margin: "auto 0 ",
+          position: "absolute",
+          transform: "translateX(-50%)",
+          left: "50%",
+          paddingBottom: "6rem",
+        }}
       />
     </div>
   );
