@@ -223,7 +223,11 @@ export default function GridContainer({
             >
               За вcе время
             </p>
-            <StyledLink to="/statistics" bottom="1rem">
+            <StyledLink
+              to="/statistics"
+              state={{ from: location.pathname }}
+              bottom="1rem"
+            >
               Y
             </StyledLink>
           </>
