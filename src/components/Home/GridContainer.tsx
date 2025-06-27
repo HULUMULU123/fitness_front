@@ -223,7 +223,7 @@ export default function GridContainer({
             >
               За вcе время
             </p>
-            <StyledLink to="/train" bottom="0.5rem">
+            <StyledLink to="/statistics" bottom="0.5rem">
               Y
             </StyledLink>
           </>
