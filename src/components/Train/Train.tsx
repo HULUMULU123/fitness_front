@@ -237,6 +237,8 @@ export default function Train() {
     strength: "Силовая",
   };
 
+  console.log(previous_workout);
+
   return (
     <Card>
       <Header>
