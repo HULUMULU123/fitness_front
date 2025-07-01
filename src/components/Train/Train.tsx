@@ -347,27 +347,36 @@ export default function Train() {
               <ExerciseList>
                 {superset.exercises
                   .sort((a, b) => a.order - b.order)
-                  .map(({ id, exercise_name, repetitions, weight, order }) => (
-                    <>
-                      <SupersetExerciseItem key={id} completed={false}>
-                        <Order>{order + 1}</Order>
-                        <ExerciseName completed={false}>
-                          {exercise_name}
-                        </ExerciseName>
-                        <DetailItem completed={superset.is_completed}>
-                          {repetitions !== null ? `${repetitions} повтор` : "-"}
-                        </DetailItem>
-                        <DetailItem completed={superset.is_completed}>
-                          {weight !== null ? `${weight} кг` : "-"}
-                        </DetailItem>
-                      </SupersetExerciseItem>
-                      <Description>
-                        {superset.description != null
-                          ? `${superset.description}`
-                          : ""}
-                      </Description>
-                    </>
-                  ))}
+                  .map(
+                    ({
+                      id,
+                      exercise_name,
+                      repetitions,
+                      weight,
+                      order,
+                      description,
+                    }) => (
+                      <>
+                        <SupersetExerciseItem key={id} completed={false}>
+                          <Order>{order + 1}</Order>
+                          <ExerciseName completed={false}>
+                            {exercise_name}
+                          </ExerciseName>
+                          <DetailItem completed={superset.is_completed}>
+                            {repetitions !== null
+                              ? `${repetitions} повтор`
+                              : "-"}
+                          </DetailItem>
+                          <DetailItem completed={superset.is_completed}>
+                            {weight !== null ? `${weight} кг` : "-"}
+                          </DetailItem>
+                        </SupersetExerciseItem>
+                        <Description>
+                          {description != null ? `${description}` : ""}
+                        </Description>
+                      </>
+                    )
+                  )}
               </ExerciseList>
             </SuperSetCard>
           ))}
@@ -452,7 +461,14 @@ export default function Train() {
                     {superset.exercises
                       ?.sort((a, b) => a.order - b.order)
                       .map(
-                        ({ id, exercise_name, repetitions, weight, order }) => (
+                        ({
+                          id,
+                          exercise_name,
+                          repetitions,
+                          weight,
+                          order,
+                          description,
+                        }) => (
                           <>
                             <SupersetExerciseItem key={id} completed={false}>
                               <Order>{order + 1}</Order>
@@ -468,9 +484,7 @@ export default function Train() {
                                 {weight !== null ? `${weight} кг` : "-"}
                               </DetailItem>
                               <DetailItem completed={superset.is_completed}>
-                                {superset.description != null
-                                  ? `${superset.description}`
-                                  : ""}
+                                {description != null ? `${description}` : ""}
                               </DetailItem>
                             </SupersetExerciseItem>
                             <Description>
