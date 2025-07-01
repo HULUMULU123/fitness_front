@@ -1,80 +1,70 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
-// Плавное появление оверлея
-const fadeIn = keyframes`
-  from { opacity: 0; }
-  to { opacity: 1; }
-`;
-
-// Полноэкранный полупрозрачный фон с анимацией
 const Overlay = styled.div`
-  position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.7);
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: ${fadeIn} 0.25s ease forwards;
-  z-index: 999;
 `;
 
-// Контейнер с модальным контентом
 const Content = styled.div`
   position: relative;
   background: #222;
-  padding: 2rem;
-  border-radius: 12px;
-  max-width: 90vw;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
-  color: white;
+  border-radius: 8px;
+  padding: 1rem;
+  width: 90%;
+  max-width: 600px;
 `;
 
-// Кнопка закрытия с hover-эффектом и aria-label для доступности
+const Header = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #444;
+`;
+
 const CloseButton = styled.button`
-  position: absolute;
-  top: 1rem;
-  right: 1rem; // Сделал справа, это привычнее для UX
-  font-size: 1.8rem;
-  color: white;
-  background: transparent;
-  border: none;
+  background-color: #333;
+  border: 1px solid #555;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
   cursor: pointer;
-  transition: color 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 
   &:hover,
   &:focus {
-    color: #f44336; // красный оттенок при наведении и фокусе
+    background-color: #444;
+    border-color: #777;
     outline: none;
+  }
+
+  &:active {
+    background-color: #222;
   }
 `;
 
-interface ModalWrapperProps {
+export default function ModalWrapper({
+  children,
+}: {
   children: React.ReactNode;
-}
-
-export default function ModalWrapper({ children }: ModalWrapperProps) {
+}) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleClose = () => {
-    // Если from не передан — вернуться на корень
-    if (location.state?.from) {
-      navigate(location.state.from);
-    } else {
-      navigate("/");
-    }
-  };
+  const handleClose = () => navigate(location.state?.from);
 
   return (
-    <Overlay onClick={handleClose} role="dialog" aria-modal="true">
+    <Overlay onClick={handleClose}>
       <Content onClick={(e) => e.stopPropagation()}>
-        <CloseButton onClick={handleClose} aria-label="Close modal" autoFocus>
-          ×
-        </CloseButton>
+        <Header>
+          <CloseButton onClick={handleClose}>Закрыть</CloseButton>
+        </Header>
         {children}
       </Content>
     </Overlay>
