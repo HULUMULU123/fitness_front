@@ -14,7 +14,7 @@ const Content = styled.div`
 const Header = styled.div`
   display: flex;
 
-  padding: 0.5rem;
+  padding: 0.1rem 0.5rem;
   position: absolute;
   top: 0;
   z-index: 99999999;
