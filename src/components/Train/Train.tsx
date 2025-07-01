@@ -160,10 +160,15 @@ const Weight = styled.span`
   font-style: italic;
 `;
 
-const Description = styled.p`
-  text-align: center;
-  color: #fff;
+const Description = styled.div`
+  font-size: 0.85rem; // чуть меньше основного текста
+  color: #777777; // светло-серый цвет
+  margin-top: 4px; // небольшой отступ сверху от ExerciseItem
+  font-style: italic; // курсив, чтобы выделить описание
+  padding-left: 24px; // отступ слева, чтобы визуально выровнять с текстом внутри ExerciseItem (по необходимости можно подкорректировать)
+  user-select: none; // опционально — чтобы текст не выделялся по ошибке
 `;
+
 // const CheckboxWrapper = styled.div`
 //   margin-left: 1rem;
 // `;
@@ -276,17 +281,12 @@ export default function Train() {
                   </ExerciseName>
 
                   <DetailItem completed={item.is_completed}>
+                    {item.weight != null ? `${item.weight} кг` : ""}
+                  </DetailItem>
+                  <DetailItem completed={item.is_completed}>
                     {item.repetitions != null
                       ? `${item.repetitions} повт.`
                       : ""}
-                  </DetailItem>
-
-                  <DetailItem completed={item.is_completed}>
-                    {item.weight != null ? `${item.weight} кг` : ""}
-                  </DetailItem>
-
-                  <DetailItem completed={item.is_completed}>
-                    {item.description != null ? `${item.description}` : ""}
                   </DetailItem>
 
                   {!item.is_completed && (
@@ -299,6 +299,9 @@ export default function Train() {
                     </CheckboxWrapper>
                   )}
                 </ExerciseItem>
+                <Description>
+                  {item.description != null ? `${item.description}` : ""}
+                </Description>
               </>
             ))}
           </>
@@ -345,23 +348,25 @@ export default function Train() {
                 {superset.exercises
                   .sort((a, b) => a.order - b.order)
                   .map(({ id, exercise_name, repetitions, weight, order }) => (
-                    <SupersetExerciseItem key={id} completed={false}>
-                      <Order>{order + 1}</Order>
-                      <ExerciseName completed={false}>
-                        {exercise_name}
-                      </ExerciseName>
-                      <DetailItem completed={superset.is_completed}>
-                        {repetitions !== null ? `${repetitions} повтор` : "-"}
-                      </DetailItem>
-                      <DetailItem completed={superset.is_completed}>
-                        {weight !== null ? `${weight} кг` : "-"}
-                      </DetailItem>
-                      <DetailItem completed={superset.is_completed}>
+                    <>
+                      <SupersetExerciseItem key={id} completed={false}>
+                        <Order>{order + 1}</Order>
+                        <ExerciseName completed={false}>
+                          {exercise_name}
+                        </ExerciseName>
+                        <DetailItem completed={superset.is_completed}>
+                          {repetitions !== null ? `${repetitions} повтор` : "-"}
+                        </DetailItem>
+                        <DetailItem completed={superset.is_completed}>
+                          {weight !== null ? `${weight} кг` : "-"}
+                        </DetailItem>
+                      </SupersetExerciseItem>
+                      <Description>
                         {superset.description != null
                           ? `${superset.description}`
                           : ""}
-                      </DetailItem>
-                    </SupersetExerciseItem>
+                      </Description>
+                    </>
                   ))}
               </ExerciseList>
             </SuperSetCard>
@@ -384,23 +389,25 @@ export default function Train() {
             {Array.isArray(previous_workout.exercises) &&
             previous_workout.exercises.length > 0 ? (
               previous_workout.exercises.map((item, index) => (
-                <ExerciseItem key={index} completed={item.is_completed}>
-                  <Index completed={item.is_completed}>{index + 1}.</Index>
-                  <ExerciseName completed={item.is_completed}>
-                    {item.exercise?.name || "Без названия"}
-                  </ExerciseName>
-                  <DetailItem completed={item.is_completed}>
-                    {item.repetitions != null
-                      ? `${item.repetitions} повт.`
-                      : ""}
-                  </DetailItem>
-                  <DetailItem completed={item.is_completed}>
-                    {item.weight != null ? `${item.weight} кг` : ""}
-                  </DetailItem>
-                  <DetailItem completed={item.is_completed}>
+                <>
+                  <ExerciseItem key={index} completed={item.is_completed}>
+                    <Index completed={item.is_completed}>{index + 1}.</Index>
+                    <ExerciseName completed={item.is_completed}>
+                      {item.exercise?.name || "Без названия"}
+                    </ExerciseName>
+                    <DetailItem completed={item.is_completed}>
+                      {item.repetitions != null
+                        ? `${item.repetitions} повт.`
+                        : ""}
+                    </DetailItem>
+                    <DetailItem completed={item.is_completed}>
+                      {item.weight != null ? `${item.weight} кг` : ""}
+                    </DetailItem>
+                  </ExerciseItem>
+                  <Description>
                     {item.description != null ? `${item.description}` : ""}
-                  </DetailItem>
-                </ExerciseItem>
+                  </Description>
+                </>
               ))
             ) : (
               <p>Упражнений нет</p>
@@ -446,25 +453,32 @@ export default function Train() {
                       ?.sort((a, b) => a.order - b.order)
                       .map(
                         ({ id, exercise_name, repetitions, weight, order }) => (
-                          <SupersetExerciseItem key={id} completed={false}>
-                            <Order>{order + 1}</Order>
-                            <ExerciseName completed={false}>
-                              {exercise_name}
-                            </ExerciseName>
-                            <DetailItem completed={superset.is_completed}>
-                              {repetitions !== null
-                                ? `${repetitions} повтор`
-                                : "-"}
-                            </DetailItem>
-                            <DetailItem completed={superset.is_completed}>
-                              {weight !== null ? `${weight} кг` : "-"}
-                            </DetailItem>
-                            <DetailItem completed={superset.is_completed}>
+                          <>
+                            <SupersetExerciseItem key={id} completed={false}>
+                              <Order>{order + 1}</Order>
+                              <ExerciseName completed={false}>
+                                {exercise_name}
+                              </ExerciseName>
+                              <DetailItem completed={superset.is_completed}>
+                                {repetitions !== null
+                                  ? `${repetitions} повтор`
+                                  : "-"}
+                              </DetailItem>
+                              <DetailItem completed={superset.is_completed}>
+                                {weight !== null ? `${weight} кг` : "-"}
+                              </DetailItem>
+                              <DetailItem completed={superset.is_completed}>
+                                {superset.description != null
+                                  ? `${superset.description}`
+                                  : ""}
+                              </DetailItem>
+                            </SupersetExerciseItem>
+                            <Description>
                               {superset.description != null
                                 ? `${superset.description}`
                                 : ""}
-                            </DetailItem>
-                          </SupersetExerciseItem>
+                            </Description>
+                          </>
                         )
                       )}
                   </ExerciseList>
