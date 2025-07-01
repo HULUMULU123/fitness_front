@@ -54,7 +54,9 @@ export default function ModalWrapper({
 
   return (
     <Overlay onClick={handleClose}>
-      <CloseButton onClick={handleClose}>×</CloseButton>
+      <Header>
+        <CloseButton onClick={handleClose}>×</CloseButton>
+      </Header>
       <Content onClick={(e) => e.stopPropagation()}>{children}</Content>
     </Overlay>
   );
