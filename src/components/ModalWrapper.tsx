@@ -18,6 +18,7 @@ const Header = styled.div`
   border-bottom: 1px solid #444;
   position: absolute;
   top: 0;
+  z-index: 99999999;
 `;
 
 const CloseButton = styled.button`
