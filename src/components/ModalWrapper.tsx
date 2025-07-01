@@ -4,20 +4,11 @@ import styled from "styled-components";
 
 const Overlay = styled.div`
   inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: black;
 `;
 
 const Content = styled.div`
   position: relative;
-  background: #222;
-  border-radius: 8px;
-  padding: 1rem;
-  width: 90%;
-  max-width: 600px;
 `;
 
 const Header = styled.div`
@@ -25,6 +16,8 @@ const Header = styled.div`
   justify-content: flex-end;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid #444;
+  position: absolute;
+  top: 0;
 `;
 
 const CloseButton = styled.button`
@@ -61,12 +54,8 @@ export default function ModalWrapper({
 
   return (
     <Overlay onClick={handleClose}>
-      <Content onClick={(e) => e.stopPropagation()}>
-        <Header>
-          <CloseButton onClick={handleClose}>Закрыть</CloseButton>
-        </Header>
-        {children}
-      </Content>
+      <CloseButton onClick={handleClose}>×</CloseButton>
+      <Content onClick={(e) => e.stopPropagation()}>{children}</Content>
     </Overlay>
   );
 }
