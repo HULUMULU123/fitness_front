@@ -201,6 +201,7 @@ export default function Train() {
     completed_superset_count,
     exercises,
     supersets,
+    previous_workout,
   } = workout;
 
   const handleSave = () => {
@@ -290,7 +291,29 @@ export default function Train() {
           <p>Упражнений нет</p>
         )}
       </ExerciseList>
-
+      {previous_workout ? (
+        <ExerciseList>
+          <h3>Упражнения из предыдущей тренировки:</h3>
+          {previous_workout.exercises.length > 0 ? (
+            previous_workout.exercises.map((item: any, index: number) => (
+              <ExerciseItem key={index} completed={item.is_completed}>
+                <Index completed={item.is_completed}>{index + 1}.</Index>
+                <ExerciseName completed={item.is_completed}>
+                  {item.exercise.name}
+                </ExerciseName>
+                <DetailItem completed={item.is_completed}>
+                  {item.repetitions != null ? `${item.repetitions} повт.` : ""}
+                </DetailItem>
+                <DetailItem completed={item.is_completed}>
+                  {item.weight != null ? `${item.weight} кг` : ""}
+                </DetailItem>
+              </ExerciseItem>
+            ))
+          ) : (
+            <p>Упражнений нет</p>
+          )}
+        </ExerciseList>
+      ) : null}
       <Footer>
         <Progress>
           Выполнено:{" "}
@@ -299,10 +322,10 @@ export default function Train() {
           </strong>
         </Progress>
       </Footer>
-
-      <h3>Ваши упражнения в суперсете:</h3>
       {supersets.length > 0 ? (
         <>
+          <h3>Ваши упражнения в суперсете:</h3>
+
           {supersets.map((superset) => (
             <SuperSetCard completed={superset.is_completed} key={superset.id}>
               <div
