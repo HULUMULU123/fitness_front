@@ -13,12 +13,13 @@ const Content = styled.div`
 
 const Header = styled.div`
   display: flex;
-  justify-content: flex-end;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid #444;
+
+  padding: 0.5rem;
   position: absolute;
   top: 0;
   z-index: 99999999;
+  width: 100%;
+  background: #222;
 `;
 
 const CloseButton = styled.button`
