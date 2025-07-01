@@ -293,29 +293,6 @@ export default function Train() {
           <p>Упражнений нет</p>
         )}
       </ExerciseList>
-      {previous_workout ? (
-        <ExerciseList>
-          <h3>Упражнения из предыдущей тренировки:</h3>
-          {previous_workout.exercises.length > 0 ? (
-            previous_workout.exercises.map((item: any, index: number) => (
-              <ExerciseItem key={index} completed={item.is_completed}>
-                <Index completed={item.is_completed}>{index + 1}.</Index>
-                <ExerciseName completed={item.is_completed}>
-                  {item.exercise.name}
-                </ExerciseName>
-                <DetailItem completed={item.is_completed}>
-                  {item.repetitions != null ? `${item.repetitions} повт.` : ""}
-                </DetailItem>
-                <DetailItem completed={item.is_completed}>
-                  {item.weight != null ? `${item.weight} кг` : ""}
-                </DetailItem>
-              </ExerciseItem>
-            ))
-          ) : (
-            <p>Упражнений нет</p>
-          )}
-        </ExerciseList>
-      ) : null}
       <Footer>
         <Progress>
           Выполнено:{" "}
@@ -327,7 +304,6 @@ export default function Train() {
       {supersets.length > 0 ? (
         <>
           <h3>Ваши упражнения в суперсете:</h3>
-
           {supersets.map((superset) => (
             <SuperSetCard completed={superset.is_completed} key={superset.id}>
               <div
@@ -372,19 +348,106 @@ export default function Train() {
               </ExerciseList>
             </SuperSetCard>
           ))}
+          <Footer>
+            <Progress>
+              Выполнено:{" "}
+              <strong>
+                {completed_superset_count}/{superset_count}
+              </strong>
+            </Progress>
+          </Footer>
         </>
-      ) : (
-        <p>Суперсетов нет</p>
-      )}
-      <Footer>
-        <Progress>
-          Выполнено:{" "}
-          <strong>
-            {completed_superset_count}/{superset_count}
-          </strong>
-        </Progress>
-      </Footer>
+      ) : null}
       {showSave && <SaveButton onClick={handleSave}>Сохранить</SaveButton>}
+      {previous_workout ? (
+        <>
+          <ExerciseList>
+            <h3>Упражнения из предыдущей тренировки:</h3>
+            {Array.isArray(previous_workout.exercises) &&
+            previous_workout.exercises.length > 0 ? (
+              previous_workout.exercises.map((item, index) => (
+                <ExerciseItem key={index} completed={item.is_completed}>
+                  <Index completed={item.is_completed}>{index + 1}.</Index>
+                  <ExerciseName completed={item.is_completed}>
+                    {item.exercise?.name || "Без названия"}
+                  </ExerciseName>
+                  <DetailItem completed={item.is_completed}>
+                    {item.repetitions != null
+                      ? `${item.repetitions} повт.`
+                      : ""}
+                  </DetailItem>
+                  <DetailItem completed={item.is_completed}>
+                    {item.weight != null ? `${item.weight} кг` : ""}
+                  </DetailItem>
+                </ExerciseItem>
+              ))
+            ) : (
+              <p>Упражнений нет</p>
+            )}
+          </ExerciseList>
+
+          {Array.isArray(previous_workout.supersets) &&
+          previous_workout.supersets.length > 0 ? (
+            <>
+              <h3>Предыдущие суперсеты:</h3>
+              {previous_workout.supersets.map((superset) => (
+                <SuperSetCard
+                  completed={superset.is_completed}
+                  key={superset.id}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row-reverse",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      minHeight: "32px",
+                    }}
+                  >
+                    {superset.is_completed ? (
+                      <div style={{ width: "28px" }} />
+                    ) : (
+                      // {/* Пустой блок с шириной как у чекбокса */}
+                      <CheckboxWrapper>
+                        <input
+                          type="checkbox"
+                          checked={!!savedSupersets[superset.id]}
+                          onChange={() =>
+                            handleCheckboxSupersChange(superset.id)
+                          }
+                        />
+                      </CheckboxWrapper>
+                    )}
+                    <SuperSetHeader>{superset.superset_name}</SuperSetHeader>
+                  </div>
+                  <ExerciseList>
+                    {superset.exercises
+                      ?.sort((a, b) => a.order - b.order)
+                      .map(
+                        ({ id, exercise_name, repetitions, weight, order }) => (
+                          <SupersetExerciseItem key={id} completed={false}>
+                            <Order>{order + 1}</Order>
+                            <ExerciseName completed={false}>
+                              {exercise_name}
+                            </ExerciseName>
+                            <DetailItem completed={superset.is_completed}>
+                              {repetitions !== null
+                                ? `${repetitions} повтор`
+                                : "-"}
+                            </DetailItem>
+                            <DetailItem completed={superset.is_completed}>
+                              {weight !== null ? `${weight} кг` : "-"}
+                            </DetailItem>
+                          </SupersetExerciseItem>
+                        )
+                      )}
+                  </ExerciseList>
+                </SuperSetCard>
+              ))}
+            </>
+          ) : null}
+        </>
+      ) : null}
     </Card>
   );
 }
