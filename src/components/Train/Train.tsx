@@ -45,7 +45,7 @@ const ExerciseList = styled.ul`
 
 const ExerciseItem = styled.li<{ completed: boolean }>`
   display: grid;
-  grid-template-columns: 2rem 1fr 5rem 5rem 2rem;
+  grid-template-columns: 2rem 1fr 5rem 5rem 5rem 2rem;
   align-items: center;
   padding: 0.6rem 0.2rem;
   background-color: ${(props) => (props.completed ? "#2196f3" : "transparent")};
@@ -58,7 +58,7 @@ const ExerciseItem = styled.li<{ completed: boolean }>`
 
 const SupersetExerciseItem = styled.li<{ completed: boolean }>`
   display: grid;
-  grid-template-columns: 2rem 1fr 5rem 5rem;
+  grid-template-columns: 2rem 1fr 5rem 5rem 5rem;
   align-items: center;
   padding: 0.6rem 0.2rem;
   background-color: ${(props) => (props.completed ? "#2196f3" : "transparent")};
@@ -159,6 +159,11 @@ const Weight = styled.span`
   color: #b0b0b0;
   font-style: italic;
 `;
+
+const Description = styled.p`
+  text-align: center;
+  color: #fff;
+`;
 // const CheckboxWrapper = styled.div`
 //   margin-left: 1rem;
 // `;
@@ -253,40 +258,48 @@ export default function Train() {
         {exercises.length > 0 ? (
           <>
             {exercises.map((item: any, index: number) => (
-              <ExerciseItem key={index} completed={item.is_completed}>
-                <Index completed={item.is_completed}>{index + 1}.</Index>
-                <ExerciseName
-                  completed={item.is_completed}
-                  onClick={() => {
-                    navigate("/exercise", {
-                      state: {
-                        from: location.state?.from,
-                        id: item.exercise.id,
-                      },
-                    });
-                  }}
-                >
-                  {item.exercise.name}
-                </ExerciseName>
+              <>
+                <ExerciseItem key={index} completed={item.is_completed}>
+                  <Index completed={item.is_completed}>{index + 1}.</Index>
+                  <ExerciseName
+                    completed={item.is_completed}
+                    onClick={() => {
+                      navigate("/exercise", {
+                        state: {
+                          from: location.state?.from,
+                          id: item.exercise.id,
+                        },
+                      });
+                    }}
+                  >
+                    {item.exercise.name}
+                  </ExerciseName>
 
-                <DetailItem completed={item.is_completed}>
-                  {item.repetitions != null ? `${item.repetitions} повт.` : ""}
-                </DetailItem>
+                  <DetailItem completed={item.is_completed}>
+                    {item.repetitions != null
+                      ? `${item.repetitions} повт.`
+                      : ""}
+                  </DetailItem>
 
-                <DetailItem completed={item.is_completed}>
-                  {item.weight != null ? `${item.weight} кг` : ""}
-                </DetailItem>
+                  <DetailItem completed={item.is_completed}>
+                    {item.weight != null ? `${item.weight} кг` : ""}
+                  </DetailItem>
 
-                {!item.is_completed && (
-                  <CheckboxWrapper>
-                    <input
-                      type="checkbox"
-                      checked={!!modified[item.id]}
-                      onChange={() => handleCheckboxChange(item.id)}
-                    />
-                  </CheckboxWrapper>
-                )}
-              </ExerciseItem>
+                  <DetailItem completed={item.is_completed}>
+                    {item.description != null ? `${item.description}` : ""}
+                  </DetailItem>
+
+                  {!item.is_completed && (
+                    <CheckboxWrapper>
+                      <input
+                        type="checkbox"
+                        checked={!!modified[item.id]}
+                        onChange={() => handleCheckboxChange(item.id)}
+                      />
+                    </CheckboxWrapper>
+                  )}
+                </ExerciseItem>
+              </>
             ))}
           </>
         ) : (
@@ -343,6 +356,11 @@ export default function Train() {
                       <DetailItem completed={superset.is_completed}>
                         {weight !== null ? `${weight} кг` : "-"}
                       </DetailItem>
+                      <DetailItem completed={superset.is_completed}>
+                        {superset.description != null
+                          ? `${superset.description}`
+                          : ""}
+                      </DetailItem>
                     </SupersetExerciseItem>
                   ))}
               </ExerciseList>
@@ -378,6 +396,9 @@ export default function Train() {
                   </DetailItem>
                   <DetailItem completed={item.is_completed}>
                     {item.weight != null ? `${item.weight} кг` : ""}
+                  </DetailItem>
+                  <DetailItem completed={item.is_completed}>
+                    {item.description != null ? `${item.description}` : ""}
                   </DetailItem>
                 </ExerciseItem>
               ))
@@ -437,6 +458,11 @@ export default function Train() {
                             </DetailItem>
                             <DetailItem completed={superset.is_completed}>
                               {weight !== null ? `${weight} кг` : "-"}
+                            </DetailItem>
+                            <DetailItem completed={superset.is_completed}>
+                              {superset.description != null
+                                ? `${superset.description}`
+                                : ""}
                             </DetailItem>
                           </SupersetExerciseItem>
                         )
