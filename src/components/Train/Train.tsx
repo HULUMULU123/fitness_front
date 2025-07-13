@@ -370,6 +370,7 @@ export default function Train() {
                           }
                           style={{ width: "30px" }}
                         />
+                        кг
                       </DetailItem>
                       <DetailItem completed={false}>
                         <input
@@ -389,6 +390,7 @@ export default function Train() {
                           }
                           style={{ width: "30px" }}
                         />
+                        повт.
                       </DetailItem>
                     </>
                   ) : (
