@@ -351,6 +351,7 @@ export default function Train() {
                     ({
                       id,
                       exercise_name,
+                      exercise_id,
                       repetitions,
                       weight,
                       order,
@@ -359,7 +360,17 @@ export default function Train() {
                       <>
                         <SupersetExerciseItem key={id} completed={false}>
                           <Order>{order + 1}</Order>
-                          <ExerciseName completed={false}>
+                          <ExerciseName
+                            completed={false}
+                            onClick={() => {
+                              navigate("/exercise", {
+                                state: {
+                                  from: location.state?.from,
+                                  id: exercise_id,
+                                },
+                              });
+                            }}
+                          >
                             {exercise_name}
                           </ExerciseName>
                           <DetailItem completed={superset.is_completed}>
@@ -401,7 +412,17 @@ export default function Train() {
                 <>
                   <ExerciseItem key={index} completed={item.is_completed}>
                     <Index completed={item.is_completed}>{index + 1}.</Index>
-                    <ExerciseName completed={item.is_completed}>
+                    <ExerciseName
+                      completed={item.is_completed}
+                      onClick={() => {
+                        navigate("/exercise", {
+                          state: {
+                            from: location.state?.from,
+                            id: item.exercise.id,
+                          },
+                        });
+                      }}
+                    >
                       {item.exercise?.name || "Без названия"}
                     </ExerciseName>
                     <DetailItem completed={item.is_completed}>
@@ -464,6 +485,7 @@ export default function Train() {
                         ({
                           id,
                           exercise_name,
+                          exercise_id,
                           repetitions,
                           weight,
                           order,
@@ -472,7 +494,17 @@ export default function Train() {
                           <>
                             <SupersetExerciseItem key={id} completed={false}>
                               <Order>{order + 1}</Order>
-                              <ExerciseName completed={false}>
+                              <ExerciseName
+                                completed={false}
+                                onClick={() => {
+                                  navigate("/exercise", {
+                                    state: {
+                                      from: location.state?.from,
+                                      id: exercise_id,
+                                    },
+                                  });
+                                }}
+                              >
                                 {exercise_name}
                               </ExerciseName>
                               <DetailItem completed={superset.is_completed}>
