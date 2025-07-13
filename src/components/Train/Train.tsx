@@ -445,11 +445,11 @@ export default function Train() {
                   flexDirection: "row-reverse",
                   justifyContent: "space-between",
                   alignItems: "center",
-                  minHeight: "32px", // на всякий случай, если нужно выровнять
+                  minHeight: "32px",
                 }}
               >
                 {superset.is_completed ? (
-                  <div style={{ width: "28px" }} /> // Пустой блок с шириной как у чекбокса
+                  <div style={{ width: "28px" }} />
                 ) : (
                   <CheckboxWrapper>
                     <input
@@ -461,6 +461,7 @@ export default function Train() {
                 )}
                 <SuperSetHeader>{superset.superset_name}</SuperSetHeader>
               </div>
+
               <ExerciseList>
                 {superset.exercises
                   .sort((a, b) => a.order - b.order)
@@ -474,11 +475,12 @@ export default function Train() {
                       order,
                       description,
                     }) => (
-                      <>
-                        <SupersetExerciseItem key={id} completed={false}>
+                      <React.Fragment key={id}>
+                        <SupersetExerciseItem completed={superset.is_completed}>
                           <Order>{order + 1}</Order>
+
                           <ExerciseName
-                            completed={false}
+                            completed={superset.is_completed}
                             onClick={() => {
                               navigate("/exercise", {
                                 state: {
@@ -490,19 +492,68 @@ export default function Train() {
                           >
                             {exercise_name}
                           </ExerciseName>
-                          <DetailItem completed={superset.is_completed}>
-                            {repetitions !== null
-                              ? `${repetitions} повтор`
-                              : "-"}
-                          </DetailItem>
-                          <DetailItem completed={superset.is_completed}>
-                            {weight !== null ? `${weight} кг` : "-"}
-                          </DetailItem>
+
+                          {!superset.is_completed ? (
+                            <>
+                              <DetailItem completed={false}>
+                                <input
+                                  type="number"
+                                  placeholder="вес"
+                                  value={
+                                    editedExercises[id]?.weight ??
+                                    (weight != null ? weight.toString() : "")
+                                  }
+                                  onChange={(e) =>
+                                    handleInputChange(
+                                      id,
+                                      "weight",
+                                      e.target.value
+                                    )
+                                  }
+                                  style={{ width: "60px" }}
+                                />
+                                кг
+                              </DetailItem>
+                              <DetailItem completed={false}>
+                                <input
+                                  type="number"
+                                  placeholder="повт."
+                                  value={
+                                    editedExercises[id]?.repetitions ??
+                                    (repetitions != null
+                                      ? repetitions.toString()
+                                      : "")
+                                  }
+                                  onChange={(e) =>
+                                    handleInputChange(
+                                      id,
+                                      "repetitions",
+                                      e.target.value
+                                    )
+                                  }
+                                  style={{ width: "60px" }}
+                                />
+                                повт.
+                              </DetailItem>
+                            </>
+                          ) : (
+                            <>
+                              <DetailItem completed={true}>
+                                {weight != null ? `${weight} кг` : "-"}
+                              </DetailItem>
+                              <DetailItem completed={true}>
+                                {repetitions != null
+                                  ? `${repetitions} повт.`
+                                  : "-"}
+                              </DetailItem>
+                            </>
+                          )}
                         </SupersetExerciseItem>
-                        <Description>
-                          {description != null ? `${description}` : ""}
-                        </Description>
-                      </>
+
+                        {description && (
+                          <Description>{description}</Description>
+                        )}
+                      </React.Fragment>
                     )
                   )}
               </ExerciseList>
