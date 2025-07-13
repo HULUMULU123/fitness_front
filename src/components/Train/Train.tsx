@@ -483,15 +483,15 @@ export default function Train() {
                               <DetailItem completed={superset.is_completed}>
                                 {weight !== null ? `${weight} кг` : "-"}
                               </DetailItem>
-                              <DetailItem completed={superset.is_completed}>
+                              {/* <DetailItem completed={superset.is_completed}>
                                 {description != null ? `${description}` : ""}
-                              </DetailItem>
+                              </DetailItem> */}
                             </SupersetExerciseItem>
-                            {/* <Description>
+                            <Description>
                               {superset.description != null
                                 ? `${superset.description}`
                                 : ""}
-                            </Description> */}
+                            </Description>
                           </>
                         )
                       )}
