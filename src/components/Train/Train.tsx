@@ -283,7 +283,7 @@ export default function Train() {
         ids: idsToUpdate,
         updated_exercises: updatedExercises,
       };
-
+      console.log(payload, "testpayload");
       updateWorkout.mutate(payload, {
         onSuccess: () => {
           setModified({});
