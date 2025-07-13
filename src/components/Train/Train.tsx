@@ -208,15 +208,14 @@ export default function Train() {
     field: "weight" | "repetitions",
     value: string
   ) => {
-    const parsedValue = value === "" ? null : parseInt(value);
     setEditedExercises((prev) => ({
       ...prev,
       [id]: {
         ...prev[id],
-        [field]: isNaN(parsedValue) ? null : parsedValue,
+        [field]: value, // сохраняем строку, не число
       },
     }));
-    setModified((prev) => ({ ...prev, [id]: true })); // <- чтобы показать кнопку "Сохранить"
+    setModified((prev) => ({ ...prev, [id]: true }));
     setShowSave(true);
   };
 
@@ -369,7 +368,7 @@ export default function Train() {
                           onChange={(e) =>
                             handleInputChange(item.id, "weight", e.target.value)
                           }
-                          style={{ width: "60px" }}
+                          style={{ width: "30px" }}
                         />
                       </DetailItem>
                       <DetailItem completed={false}>
@@ -388,7 +387,7 @@ export default function Train() {
                               e.target.value
                             )
                           }
-                          style={{ width: "60px" }}
+                          style={{ width: "30px" }}
                         />
                       </DetailItem>
                     </>
