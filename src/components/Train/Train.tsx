@@ -446,13 +446,13 @@ export default function Train() {
                     ) : (
                       // {/* Пустой блок с шириной как у чекбокса */}
                       <CheckboxWrapper>
-                        <input
+                        {/* <input
                           type="checkbox"
                           checked={!!savedSupersets[superset.id]}
                           onChange={() =>
                             handleCheckboxSupersChange(superset.id)
                           }
-                        />
+                        /> */}
                       </CheckboxWrapper>
                     )}
                     <SuperSetHeader>{superset.superset_name}</SuperSetHeader>
