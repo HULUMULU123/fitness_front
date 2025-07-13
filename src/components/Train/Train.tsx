@@ -178,6 +178,9 @@ export default function Train() {
   const workout_id = location.state?.workoutId;
 
   const [modified, setModified] = useState<Record<number, boolean>>({});
+  const [editedExercises, setEditedExercises] = useState<
+    Record<number, { weight: number | null; repetitions: number | null }>
+  >({});
   const [showSave, setShowSave] = useState(false);
   const [savedSupersets, setSavedSupersets] = useState<Record<number, boolean>>(
     {}
@@ -199,6 +202,24 @@ export default function Train() {
       return updated;
     });
   };
+
+  const handleInputChange = (
+    id: number,
+    field: "weight" | "repetitions",
+    value: string
+  ) => {
+    const parsedValue = value === "" ? null : parseInt(value);
+    setEditedExercises((prev) => ({
+      ...prev,
+      [id]: {
+        ...prev[id],
+        [field]: isNaN(parsedValue) ? null : parsedValue,
+      },
+    }));
+    setModified((prev) => ({ ...prev, [id]: true })); // <- чтобы показать кнопку "Сохранить"
+    setShowSave(true);
+  };
+
   const {
     id,
     day,
@@ -214,27 +235,73 @@ export default function Train() {
     previous_workout,
   } = workout;
 
+  // const handleSave = () => {
+  //   const idsToUpdate = Object.entries(modified)
+  //     .filter(([_, isChecked]) => isChecked)
+  //     .map(([id]) => Number(id));
+  //   const supersetsToUpdate = Object.entries(savedSupersets)
+  //     .filter(([_, isChecked]) => isChecked)
+  //     .map(([id]) => Number(id));
+  //   if (idsToUpdate.length > 0) {
+  //     const payload = { id, ids: idsToUpdate };
+  //     updateWorkout.mutate(payload, {
+  //       onSuccess: () => {
+  //         setModified({});
+  //         setShowSave(false);
+  //       },
+  //     });
+  //   }
+  //   if (supersetsToUpdate.length > 0) {
+  //     const payload = { id, superset_ids: supersetsToUpdate };
+  //     updateWorkout.mutate(payload, {
+  //       onSuccess: () => {
+  //         setModified({});
+  //         setShowSave(false);
+  //       },
+  //     });
+  //   }
+  // };
+
   const handleSave = () => {
     const idsToUpdate = Object.entries(modified)
       .filter(([_, isChecked]) => isChecked)
       .map(([id]) => Number(id));
+
     const supersetsToUpdate = Object.entries(savedSupersets)
       .filter(([_, isChecked]) => isChecked)
       .map(([id]) => Number(id));
+
     if (idsToUpdate.length > 0) {
-      const payload = { id, ids: idsToUpdate };
+      const updatedExercises = idsToUpdate.map((id) => ({
+        id,
+        weight: editedExercises[id]?.weight ?? null,
+        repetitions: editedExercises[id]?.repetitions ?? null,
+      }));
+
+      const payload = {
+        id,
+        ids: idsToUpdate,
+        updated_exercises: updatedExercises,
+      };
+
       updateWorkout.mutate(payload, {
         onSuccess: () => {
           setModified({});
+          setEditedExercises({});
           setShowSave(false);
         },
       });
     }
+
     if (supersetsToUpdate.length > 0) {
-      const payload = { id, superset_ids: supersetsToUpdate };
+      const payload = {
+        id,
+        superset_ids: supersetsToUpdate,
+      };
+
       updateWorkout.mutate(payload, {
         onSuccess: () => {
-          setModified({});
+          setSavedSupersets({});
           setShowSave(false);
         },
       });
@@ -280,14 +347,63 @@ export default function Train() {
                     {item.exercise.name}
                   </ExerciseName>
 
-                  <DetailItem completed={item.is_completed}>
+                  {/* <DetailItem completed={item.is_completed}>
                     {item.weight != null ? `${item.weight} кг` : ""}
                   </DetailItem>
                   <DetailItem completed={item.is_completed}>
                     {item.repetitions != null
                       ? `${item.repetitions} повт.`
                       : ""}
-                  </DetailItem>
+                  </DetailItem> */}
+                  {!item.is_completed ? (
+                    <>
+                      <DetailItem completed={false}>
+                        <input
+                          type="number"
+                          placeholder="вес"
+                          value={
+                            editedExercises[item.id]?.weight ??
+                            item.weight ??
+                            ""
+                          }
+                          onChange={(e) =>
+                            handleInputChange(item.id, "weight", e.target.value)
+                          }
+                          style={{ width: "60px" }}
+                        />
+                      </DetailItem>
+                      <DetailItem completed={false}>
+                        <input
+                          type="number"
+                          placeholder="повт."
+                          value={
+                            editedExercises[item.id]?.repetitions ??
+                            item.repetitions ??
+                            ""
+                          }
+                          onChange={(e) =>
+                            handleInputChange(
+                              item.id,
+                              "repetitions",
+                              e.target.value
+                            )
+                          }
+                          style={{ width: "60px" }}
+                        />
+                      </DetailItem>
+                    </>
+                  ) : (
+                    <>
+                      <DetailItem completed={true}>
+                        {item.weight != null ? `${item.weight} кг` : ""}
+                      </DetailItem>
+                      <DetailItem completed={true}>
+                        {item.repetitions != null
+                          ? `${item.repetitions} повт.`
+                          : ""}
+                      </DetailItem>
+                    </>
+                  )}
 
                   {!item.is_completed && (
                     <CheckboxWrapper>

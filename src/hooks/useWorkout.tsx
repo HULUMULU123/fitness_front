@@ -19,6 +19,7 @@ export const useWorkout = (workoutId: string | number) => {
 
   const updateWorkout = useMutation({
     mutationFn: async (data) => {
+      console.log(data);
       const res = await api.post("/workout/update/", data);
       return res.data;
     },
