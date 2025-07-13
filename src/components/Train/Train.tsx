@@ -45,7 +45,7 @@ const ExerciseList = styled.ul`
 
 const ExerciseItem = styled.li<{ completed: boolean }>`
   display: grid;
-  grid-template-columns: 2rem 1fr 5rem 5rem 5rem 2rem;
+  grid-template-columns: 2rem 1fr 5rem 4rem 4rem 2rem;
   align-items: center;
   padding: 0.6rem 0.2rem;
   background-color: ${(props) => (props.completed ? "#2196f3" : "transparent")};
