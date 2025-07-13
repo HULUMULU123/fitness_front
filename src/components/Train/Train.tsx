@@ -368,7 +368,7 @@ export default function Train() {
                           onChange={(e) =>
                             handleInputChange(item.id, "weight", e.target.value)
                           }
-                          style={{ width: "30px" }}
+                          style={{ width: "20px" }}
                         />
                         кг
                       </DetailItem>
@@ -388,7 +388,7 @@ export default function Train() {
                               e.target.value
                             )
                           }
-                          style={{ width: "30px" }}
+                          style={{ width: "20px" }}
                         />
                         повт.
                       </DetailItem>
