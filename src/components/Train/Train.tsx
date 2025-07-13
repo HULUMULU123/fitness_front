@@ -487,11 +487,11 @@ export default function Train() {
                                 {description != null ? `${description}` : ""}
                               </DetailItem>
                             </SupersetExerciseItem>
-                            <Description>
+                            {/* <Description>
                               {superset.description != null
                                 ? `${superset.description}`
                                 : ""}
-                            </Description>
+                            </Description> */}
                           </>
                         )
                       )}
