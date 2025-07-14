@@ -186,8 +186,8 @@ export default function Train() {
   >({});
 
   const [showSave, setShowSave] = useState(false);
-  const [savedSupersets, setSavedSupersets] = useState<Record<number, boolean>>(
-    {}
+  const [savedSupersets, setSavedSupersets] = useState<Set<number>>(
+    () => new Set()
   );
   const navigate = useNavigate();
   const { workout, updateWorkout } = useWorkout(workout_id);
