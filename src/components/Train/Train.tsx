@@ -224,28 +224,27 @@ export default function Train() {
   };
   const handleSupersetInputChange = (
     supersetId: number,
+    exerciseId: number,
     field: "weight" | "repetitions",
     value: string
   ) => {
     const parsedValue = value === "" ? null : parseInt(value);
 
+    // Сохраняем изменения по упражнениям
     setEditedSupersets((prev) => ({
       ...prev,
-      [supersetId]: {
-        ...prev[supersetId],
-        [field]: value,
+      [exerciseId]: {
+        ...(prev[exerciseId] || {}),
+        [field]: parsedValue,
       },
     }));
 
+    // Добавляем supersetId в множество
     setSavedSupersets((prev) => {
-      const updated = { ...prev, [supersetId]: true };
+      const updated = new Set(prev);
+      updated.add(supersetId);
 
-      // Проверяем флаг изменений в упражнениях и суперсетах
-      setShowSave(
-        Object.values(modified).some(Boolean) ||
-          Object.values(updated).some(Boolean)
-      );
-
+      setShowSave(updated.size > 0);
       return updated;
     });
   };
@@ -327,8 +326,14 @@ export default function Train() {
       const payload = {
         id,
         superset_ids: supersetsToUpdate,
+        updated_supersets: Object.entries(editedSupersets).map(
+          ([exerciseId, data]) => ({
+            id: parseInt(exerciseId),
+            ...data,
+          })
+        ),
       };
-
+      console.log(payload, "testpayload_supers");
       updateWorkout.mutate(payload, {
         onSuccess: () => {
           setSavedSupersets({});
@@ -535,8 +540,9 @@ export default function Train() {
                                     (weight != null ? weight.toString() : "")
                                   }
                                   onChange={(e) =>
-                                    handleInputChange(
+                                    handleSupersetInputChange(
                                       id,
+                                      exercise_id,
                                       "weight",
                                       e.target.value
                                     )
@@ -556,8 +562,9 @@ export default function Train() {
                                       : "")
                                   }
                                   onChange={(e) =>
-                                    handleInputChange(
+                                    handleSupersetInputChange(
                                       id,
+                                      exercise_id,
                                       "repetitions",
                                       e.target.value
                                     )
