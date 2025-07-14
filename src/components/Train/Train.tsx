@@ -58,7 +58,7 @@ const ExerciseItem = styled.li<{ completed: boolean }>`
 
 const SupersetExerciseItem = styled.li<{ completed: boolean }>`
   display: grid;
-  grid-template-columns: 2rem 1fr 5rem 5rem 5rem;
+  grid-template-columns: 1rem 1fr 4rem 4rem 4rem;
   align-items: center;
   padding: 0.6rem 0.2rem;
   background-color: ${(props) => (props.completed ? "#2196f3" : "transparent")};
@@ -548,6 +548,7 @@ export default function Train() {
                                     )
                                   }
                                   style={{ width: "20px" }}
+                                  disabled={!!savedSupersets[superset.id]}
                                 />
                                 кг
                               </DetailItem>
@@ -569,6 +570,7 @@ export default function Train() {
                                     )
                                   }
                                   style={{ width: "20px" }}
+                                  disabled={!!savedSupersets[superset.id]}
                                 />
                                 повт.
                               </DetailItem>
