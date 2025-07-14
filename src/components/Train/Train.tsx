@@ -186,9 +186,7 @@ export default function Train() {
   >({});
 
   const [showSave, setShowSave] = useState(false);
-  const [savedSupersets, setSavedSupersets] = useState<Set<number>>(
-    () => new Set()
-  );
+  const [savedSupersets, setSavedSupersets] = useState();
   const navigate = useNavigate();
   const { workout, updateWorkout } = useWorkout(workout_id);
   if (!workout) return <LoadingSpinner />;
