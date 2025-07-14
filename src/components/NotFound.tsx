@@ -4,7 +4,7 @@ const NotFound = () => {
     <div
       style={{
         backgroundColor: "white",
-        width: "100vw",
+        width: "90vw",
         height: "100vh",
         display: "flex",
         flexDirection: "column",
@@ -32,7 +32,7 @@ const NotFound = () => {
         404
       </h1>
       <p style={{ fontSize: "1.5rem", color: "#333", marginTop: "1rem" }}>
-        Данных нет, попробуйте заполнить
+        Данных нет, попробуйте заполнить и повторить
       </p>
     </div>
   );
