@@ -181,6 +181,10 @@ export default function Train() {
   const [editedExercises, setEditedExercises] = useState<
     Record<number, { weight: number | null; repetitions: number | null }>
   >({});
+  const [editedSupersets, setEditedSupersets] = useState<
+    Record<number, { weight: number | null; repetitions: number | null }>
+  >({});
+
   const [showSave, setShowSave] = useState(false);
   const [savedSupersets, setSavedSupersets] = useState<Record<number, boolean>>(
     {}
@@ -217,6 +221,33 @@ export default function Train() {
     }));
     setModified((prev) => ({ ...prev, [id]: true }));
     setShowSave(true);
+  };
+  const handleSupersetInputChange = (
+    supersetId: number,
+    field: "weight" | "repetitions",
+    value: string
+  ) => {
+    const parsedValue = value === "" ? null : parseInt(value);
+
+    setEditedSupersets((prev) => ({
+      ...prev,
+      [supersetId]: {
+        ...prev[supersetId],
+        [field]: value,
+      },
+    }));
+
+    setSavedSupersets((prev) => {
+      const updated = { ...prev, [supersetId]: true };
+
+      // Проверяем флаг изменений в упражнениях и суперсетах
+      setShowSave(
+        Object.values(modified).some(Boolean) ||
+          Object.values(updated).some(Boolean)
+      );
+
+      return updated;
+    });
   };
 
   const {
