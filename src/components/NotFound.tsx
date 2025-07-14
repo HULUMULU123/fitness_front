@@ -4,7 +4,7 @@ const NotFound = () => {
     <div
       style={{
         backgroundColor: "white",
-        width: "90vw",
+        width: "100vw",
         height: "100vh",
         display: "flex",
         flexDirection: "column",
@@ -17,7 +17,7 @@ const NotFound = () => {
     >
       <h1
         style={{
-          fontSize: "15rem",
+          fontSize: "12rem",
           fontWeight: "900",
           margin: 0,
           backgroundImage: `url(${cosmosImageUrl})`,
