@@ -186,7 +186,9 @@ export default function Train() {
   >({});
 
   const [showSave, setShowSave] = useState(false);
-  const [savedSupersets, setSavedSupersets] = useState();
+  const [savedSupersets, setSavedSupersets] = useState<Set<number>>(
+    () => new Set()
+  );
   const navigate = useNavigate();
   const { workout, updateWorkout } = useWorkout(workout_id);
   if (!workout) return <LoadingSpinner />;
@@ -240,7 +242,8 @@ export default function Train() {
 
     // Добавляем supersetId в множество
     setSavedSupersets((prev) => {
-      const updated = new Set(prev);
+      const updated = new Set(prev instanceof Set ? prev : []);
+
       updated.add(supersetId);
 
       setShowSave(updated.size > 0);
