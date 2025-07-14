@@ -15,6 +15,7 @@ import styled from "styled-components";
 import { useStatistics } from "../../hooks/useStatistic";
 import bodySrc from "../../assets/bodyMeasure.png";
 import LoadingSpinner from "../LoadingSpinner";
+import NotFound from "../NotFound";
 // Стили для вкладок
 const TabsContainer = styled.div`
   display: flex;
@@ -56,8 +57,8 @@ const BodyChart = () => {
   );
 
   if (isLoading) return <LoadingSpinner />;
-  if (error) return <LoadingSpinner />;
-  if (!Array.isArray(statistics)) return <LoadingSpinner />;
+  if (error) return <NotFound />;
+  if (!Array.isArray(statistics)) return <NotFound />;
 
   // Добавляем форматированную дату в каждый объект (для оси X)
   const dataWithFormattedDate = statistics.map((item) => ({

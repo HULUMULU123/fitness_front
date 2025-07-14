@@ -4,6 +4,7 @@ import { Check } from "lucide-react"; // npm i lucide-react
 import { useVitamins } from "../../hooks/useVitamins";
 import { BASE_MEDIA_URL } from "../../utils/constants";
 import LoadingSpinner from "../LoadingSpinner";
+import NotFound from "../NotFound";
 
 const TableWrapper = styled.div`
   width: 100%;
@@ -55,7 +56,7 @@ const VitaminTable = () => {
   ];
 
   if (isLoading) return <LoadingSpinner />;
-  if (error) return <LoadingSpinner />;
+  if (error) return <NotFound />;
 
   return (
     <TableWrapper>

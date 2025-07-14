@@ -6,6 +6,7 @@ import { useTrainings } from "../../hooks/useDashboard";
 import { useWorkout } from "../../hooks/useWorkout";
 import { Link } from "react-router-dom";
 import LoadingSpinner from "../LoadingSpinner";
+import NotFound from "../NotFound";
 
 const Card = styled.div`
   background-color: #1e1e1e;
@@ -191,7 +192,7 @@ export default function Train() {
   );
   const navigate = useNavigate();
   const { workout, updateWorkout } = useWorkout(workout_id);
-  if (!workout) return <LoadingSpinner />;
+  if (!workout) return <NotFound />;
   const handleCheckboxChange = (id: any) => {
     setModified((prev) => {
       const updated = { ...prev, [id]: !prev[id] };
