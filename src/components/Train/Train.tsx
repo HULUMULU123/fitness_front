@@ -235,6 +235,7 @@ export default function Train() {
       ...prev,
       [exerciseId]: {
         ...(prev[exerciseId] || {}),
+
         [field]: parsedValue,
       },
     }));
@@ -536,14 +537,12 @@ export default function Train() {
                                   type="number"
                                   placeholder="вес"
                                   value={
-                                    editedSupersets[exercise_id]?.weight ??
-                                    weight ??
-                                    ""
+                                    editedSupersets[id]?.weight ?? weight ?? ""
                                   }
                                   onChange={(e) =>
                                     handleSupersetInputChange(
+                                      superset.id,
                                       id,
-                                      exercise_id,
                                       "weight",
                                       e.target.value
                                     )
@@ -557,14 +556,14 @@ export default function Train() {
                                   type="number"
                                   placeholder="повт."
                                   value={
-                                    editedSupersets[exercise_id]?.repetitions ??
+                                    editedSupersets[id]?.repetitions ??
                                     repetitions ??
                                     ""
                                   }
                                   onChange={(e) =>
                                     handleSupersetInputChange(
+                                      superset.id,
                                       id,
-                                      exercise_id,
                                       "repetitions",
                                       e.target.value
                                     )
