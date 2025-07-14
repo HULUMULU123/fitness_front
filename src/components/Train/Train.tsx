@@ -236,7 +236,7 @@ export default function Train() {
       [exerciseId]: {
         ...(prev[exerciseId] || {}),
 
-        [field]: parsedValue,
+        [field]: value,
       },
     }));
 
