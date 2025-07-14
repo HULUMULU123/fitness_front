@@ -192,7 +192,7 @@ export default function Train() {
   );
   const navigate = useNavigate();
   const { workout, updateWorkout } = useWorkout(workout_id);
-  if (!workout) return <NotFound />;
+  if (!workout) return <LoadingSpinner />;
   const handleCheckboxChange = (id: any) => {
     setModified((prev) => {
       const updated = { ...prev, [id]: !prev[id] };
