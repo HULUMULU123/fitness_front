@@ -536,8 +536,9 @@ export default function Train() {
                                   type="number"
                                   placeholder="вес"
                                   value={
-                                    editedExercises[id]?.weight ??
-                                    (weight != null ? weight.toString() : "")
+                                    editedSupersets[exercise_id]?.weight ??
+                                    weight ??
+                                    ""
                                   }
                                   onChange={(e) =>
                                     handleSupersetInputChange(
@@ -547,7 +548,7 @@ export default function Train() {
                                       e.target.value
                                     )
                                   }
-                                  style={{ width: "60px" }}
+                                  style={{ width: "20px" }}
                                 />
                                 кг
                               </DetailItem>
@@ -556,10 +557,9 @@ export default function Train() {
                                   type="number"
                                   placeholder="повт."
                                   value={
-                                    editedExercises[id]?.repetitions ??
-                                    (repetitions != null
-                                      ? repetitions.toString()
-                                      : "")
+                                    editedSupersets[exercise_id]?.repetitions ??
+                                    repetitions ??
+                                    ""
                                   }
                                   onChange={(e) =>
                                     handleSupersetInputChange(
@@ -569,7 +569,7 @@ export default function Train() {
                                       e.target.value
                                     )
                                   }
-                                  style={{ width: "60px" }}
+                                  style={{ width: "20px" }}
                                 />
                                 повт.
                               </DetailItem>
