@@ -29,7 +29,7 @@ api.interceptors.response.use(
       originalRequest._retry = true;
       try {
         const res = await axios.post(
-          "https://roodensky.online/api/token/refresh/",
+          "https://basyukcoach.ru/api/token/refresh/",
           {
             refresh: localStorage.getItem("refresh"),
           }

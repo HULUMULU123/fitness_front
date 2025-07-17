@@ -22,7 +22,7 @@ const useGlobal = create<GlobalState>((set) => ({
     set({ isLoading: true, error: null });
     try {
       axios
-        .post("https://roodensky.online/api/test/", data)
+        .post("https://basyukcoach.ru/api/test/", data)
         .then((res) => {
           localStorage.setItem("access", res.data.access);
 
