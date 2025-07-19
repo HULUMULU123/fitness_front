@@ -6,6 +6,7 @@ import Menu from "../components/Profile/Menu";
 import useGlobal from "../hooks/global";
 const StyledScreenContainer = styled.div`
   width: 100vw;
+  padding: 5rem;
 `;
 const StyledDiv = styled.div`
   display: flex;

@@ -20,7 +20,7 @@ export const Title = styled.h2`
 `;
 
 export const Field = styled.div`
-  width: 90%;
+  width: 80%;
   margin-bottom: 1rem;
 `;
 
