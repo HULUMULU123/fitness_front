@@ -66,3 +66,18 @@ export const SubmitButton = styled.button`
     background-color: #005ed3;
   }
 `;
+
+export const Textarea = styled.textarea`
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  min-height: 100px;
+  resize: vertical;
+`;
+
+export const FileInput = styled.input`
+  font-size: 1rem;
+  padding-top: 5px;
+`;

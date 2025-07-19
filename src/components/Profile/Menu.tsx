@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import useGlobal from "../../hooks/global";
 import { GiMagicLamp } from "react-icons/gi";
 import { GoGoal } from "react-icons/go";
+import { FaQuestion } from "react-icons/fa6";
 const StyledMenuContainer = styled.div`
   width: 90%;
   margin: 0 auto;
@@ -129,6 +130,20 @@ export default function Menu() {
         <GoGoal size={34} />
         <StyledMenuTextDiv>
           <StyledMenuLabel>Цель</StyledMenuLabel>
+        </StyledMenuTextDiv>
+      </StyledMenuItem>
+      <StyledMenuLine />
+      <StyledMenuLine />
+      <StyledMenuItem
+        onClick={() => {
+          navigate("/question", {
+            state: { from: location.pathname },
+          });
+        }}
+      >
+        <FaQuestion size={34} />
+        <StyledMenuTextDiv>
+          <StyledMenuLabel>Анкета</StyledMenuLabel>
         </StyledMenuTextDiv>
       </StyledMenuItem>
       <StyledMenuLine />

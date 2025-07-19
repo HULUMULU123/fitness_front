@@ -28,6 +28,7 @@ import Train from "./components/Train/Train";
 import LoadingSpinner from "./components/LoadingSpinner";
 import Exercise from "./components/Exercise/Exercise";
 import Wish from "./components/Wish/Wish";
+import QuestionnaireForm from "./components/Profile/QuestionnaireForm";
 const queryClient = new QueryClient();
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -294,6 +295,14 @@ function App() {
           element: (
             <ModalWrapper>
               <Wish />
+            </ModalWrapper>
+          ),
+        },
+        {
+          path: "/question",
+          element: (
+            <ModalWrapper>
+              <QuestionnaireForm />
             </ModalWrapper>
           ),
         },
