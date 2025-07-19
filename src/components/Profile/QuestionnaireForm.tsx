@@ -84,13 +84,13 @@ const QuestionnaireForm: React.FC = () => {
 
       <Field>
         <Label>Фамилия, Имя:</Label>
-        <Input {...register("fullName", { required: true })} />
-        {errors.fullName && <ErrorText>Введите ФИО</ErrorText>}
+        <Input {...register("full_name", { required: true })} />
+        {errors.full_name && <ErrorText>Введите ФИО</ErrorText>}
       </Field>
 
       <Field>
         <Label>Возраст, рост, вес:</Label>
-        <Input {...register("ageHeightWeight", { required: true })} />
+        <Input {...register("age_height_weight", { required: true })} />
       </Field>
 
       <Field>
@@ -110,12 +110,12 @@ const QuestionnaireForm: React.FC = () => {
 
       <Field>
         <Label>Допустимы ли капельницы, инъекции?</Label>
-        <Input {...register("injectionsAllowed", { required: true })} />
+        <Input {...register("injections_allowed", { required: true })} />
       </Field>
 
       <Field>
         <Label>Результаты анализов (менее 3 месяцев):</Label>
-        <Textarea {...register("testResults", { required: true })} />
+        <Textarea {...register("recent_tests", { required: true })} />
       </Field>
 
       <Field>
@@ -125,12 +125,12 @@ const QuestionnaireForm: React.FC = () => {
 
       <Field>
         <Label>Заболевания, травмы, операции:</Label>
-        <Textarea {...register("diagnoses", { required: true })} />
+        <Textarea {...register("diseases", { required: true })} />
       </Field>
 
       <Field>
         <Label>Физическая активность:</Label>
-        <Textarea {...register("activity", { required: true })} />
+        <Textarea {...register("physical_activity", { required: true })} />
       </Field>
 
       <Field>
@@ -145,7 +145,7 @@ const QuestionnaireForm: React.FC = () => {
 
       <Field>
         <Label>Лекарства и БАД:</Label>
-        <Textarea {...register("medsAndSupps", { required: true })} />
+        <Textarea {...register("medications", { required: true })} />
       </Field>
 
       <Field>
@@ -155,17 +155,17 @@ const QuestionnaireForm: React.FC = () => {
 
       <Field>
         <Label>Заболевания родственников:</Label>
-        <Textarea {...register("familyDiseases")} />
+        <Textarea {...register("relatives_diseases")} />
       </Field>
 
       <Field>
         <Label>Режим дня:</Label>
-        <Textarea {...register("dailyRoutine")} />
+        <Textarea {...register("day_schedule")} />
       </Field>
 
       <Field>
         <Label>Питьевой режим:</Label>
-        <Textarea {...register("water")} />
+        <Textarea {...register("water_intake")} />
       </Field>
 
       <Field>
@@ -190,17 +190,17 @@ const QuestionnaireForm: React.FC = () => {
 
       <Field>
         <Label>Уровень стресса (0-10):</Label>
-        <Input type="number" min="0" max="10" {...register("stressLevel")} />
+        <Input type="number" min="0" max="10" {...register("stress_level")} />
       </Field>
 
       <Field>
         <Label>Спортивный стаж и достижения:</Label>
-        <Textarea {...register("sportExperience")} />
+        <Textarea {...register("sport_experience")} />
       </Field>
 
       <Field>
         <Label>Файлы (фото языка, ногтей и др.):</Label>
-        <FileInput type="file" multiple {...register("files")} />
+        <FileInput type="file" multiple {...register("attachments")} />
       </Field>
 
       <SubmitButton type="submit">Отправить</SubmitButton>
