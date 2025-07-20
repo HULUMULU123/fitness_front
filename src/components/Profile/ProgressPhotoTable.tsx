@@ -86,7 +86,7 @@ const ProgressPhotoTable = () => {
 
   if (!photos || photos.length === 0)
     return (
-      <>
+      <Wrapper>
         <Header>
           <Title>Фото прогресса</Title>
           <AddButton
@@ -100,7 +100,7 @@ const ProgressPhotoTable = () => {
           </AddButton>
         </Header>
         <LoadingSpinner />
-      </>
+      </Wrapper>
     );
 
   return (

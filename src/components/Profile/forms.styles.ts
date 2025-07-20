@@ -11,6 +11,7 @@ export const FormContainer = styled.form`
   width: 100%;
   justify-self: center;
   padding: 1rem 0;
+  padding-bottom: 5rem;
 `;
 
 export const Title = styled.h2`
