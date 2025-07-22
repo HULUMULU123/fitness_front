@@ -5,12 +5,14 @@ import { useExercise } from "../../hooks/useExercise";
 import { BASE_MEDIA_URL } from "../../utils/constants";
 import styled from "styled-components";
 
-const Card = styled.div``;
+const Card = styled.div`
+  padding-bottom: 10rem;
+`;
 
 const Image = styled.img`
   width: 100vw;
   height: 60vh;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 12px;
   background-color: #2b2b2b;
 `;
@@ -64,7 +66,7 @@ export default function Exercise() {
   const { exercise } = useExercise(id);
   console.log(exercise);
   return (
-    <div>
+    <Card>
       {exercise?.photo ? (
         <Image src={`${BASE_MEDIA_URL}${exercise.photo}`} alt={exercise.name} />
       ) : (
@@ -92,6 +94,6 @@ export default function Exercise() {
           </VideoLink>
         )}
       </Content>
-    </div>
+    </Card>
   );
 }
